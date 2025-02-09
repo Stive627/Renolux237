@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .scrollVertical{
+        animation: verticalAnimation 7s linear infinite;
+        padding-bottom: 100%;
+    }
+    @keyframes verticalAnimation {
+        0% {transform: translate(0,0);}
+        100% {transform: translate((0%, 100%));}
+    }
+    .scrollHorrizontal{
+        animation: horizontalAnimation 7s linear infinite;
+        padding-left: 100%;
+    }
+    @keyframes horizontalAnimation {
+        0% {transform: translate(0, 0);}
+        100% {transform: translate(100%, 0);}
+    }
+}
+
+.com{
+    animation: comment 18s infinite;
+    padding-right: 100%;
+}
+@keyframes comment {
+    0%{
+        transform: translate(0, 0);
+    }
+    100%{
+        transform: translate(0, 100%);
+    }
+}
+.lineargrad{
+    background-color: linear-gradient(to right, rgba(234, 213, 233, 1), rgba(59, 136, 219, 0.51),  rgba(245, 245, 245, 1));;
+}
