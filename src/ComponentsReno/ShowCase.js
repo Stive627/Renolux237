@@ -9,8 +9,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import PersonIcon from '@mui/icons-material/Person';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import '../../../client/src/App.css'
-
+import '../App.css'
 const Label = ({services, currService, currSubService}) => {
 
     return(
