@@ -2,6 +2,8 @@ import React from "react";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import ProtectedRoute from './soft/ProtectedRoute'
 import Renolux from './pages/Renolux'
+import Login from './pages/Login'
+import Register from './pages/Register'
 function App() {
   return (
     <Router>
@@ -9,8 +11,8 @@ function App() {
         <Route element={<ProtectedRoute/>}>
         <Route path="/admin"/>
       </Route>
-      <Route path="/register"/>
-      <Route path="/login"/>
+      <Route path="/register" element={<Register/>}/>
+      <Route path="/login" element={<Login/>}/>
       <Route path="/" element={<Renolux/>}/>
       </Routes>
     </Router>

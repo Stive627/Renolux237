@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import CheckIcon from '@mui/icons-material/Check';
-import google from '../../public/google.png'
-import { LeftNav } from '../ComponentsReno/Nav';
+import { LeftNav } from '../ComponentsReno/Navbar';
 import { fetchLink } from '../Ttools';
 import { useNavigate } from 'react-router-dom';
 import FramePage from '../ComponentsAdmin/FramePage';
@@ -57,7 +55,7 @@ const FormAccueil = ({emailValue, passord1Value, password2Value, email, password
                 <Recommendation message={'Le mot de passe doit contenir plus de 6 characters,un chiffre et une majuscule'}/>
                 <ButtonAdmin validation={validPassword} value={'Continuer'}/>
             </form>
-            <button onClick={()=>handleGoogle()} style={{borderColor:'linear-gradient(to right, rgba(255, 65, 49, 1), rgba(255, 189, 0, 1), rgba(0, 170, 75, 1), rgba(0, 134, 249, 1))'}}  className=' p-1'><img alt='logo google' src={google}/>{' '}Continuer avec google</button>
+            <button onClick={()=>handleGoogle()} style={{borderColor:'linear-gradient(to right, rgba(255, 65, 49, 1), rgba(255, 189, 0, 1), rgba(0, 170, 75, 1), rgba(0, 134, 249, 1))'}}  className=' p-1'><img alt='logo google' src={fetchLink('medias/google.png')}/>{' '}Continuer avec google</button>
             <p className=' text-[16px]'>Vous avec un compte? connecter vous <span style={{color:'rgba(38, 103, 255, 1)'}}>ici</span></p>
             </div>
         </>

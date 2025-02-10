@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { LeftNav } from '../ComponentsReno/Nav'
 import { fetchLink } from '../Ttools'
 import FramePage from '../ComponentsAdmin/FramePage'
 

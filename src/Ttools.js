@@ -110,7 +110,8 @@ export const Loader = ({sizeContainer, sizeSpin}) =>{
 
 //fetch link for Tsoft company
 
-export const fetchLink = (suffix) => 'http://localhost:3000/' + suffix 
+export const fetchLink = (suffix) => {console.log(`http://localhost:3001/${suffix}`); return 'http://localhost:3001/' + suffix }
+
 
 
 

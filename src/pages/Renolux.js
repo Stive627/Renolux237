@@ -1,5 +1,5 @@
 import React from 'react'
-import Nav from '../ComponentsReno/Nav'
+import Navbar from '../ComponentsReno/Navbar'
 import HomeSection from '../ComponentsReno/HomeSection'
 import ShowCase from '../ComponentsReno/ShowCase'
 import Localisation from '../ComponentsReno/Localisation'
@@ -7,13 +7,13 @@ import Footer from '../ComponentsReno/Footer'
 
 function Renolux() {
   return (
-    <>
-    <Nav/>
+    <div className=' overflow-x-hidden'>
+    <Navbar/>
     <HomeSection/>
     <ShowCase/>
     <Localisation/>
     <Footer/>
-    </>
+    </div>
   )
 }
 
