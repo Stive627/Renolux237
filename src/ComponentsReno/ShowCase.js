@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState } from 'react'
-import { checkValidForm, fetchLink, Loader, Tdelay, Timg, Tspinner } from '../Ttools'
+import { checkValidForm, fetchLink, Tdelay, Timg, Tspinner } from '../Ttools'
 import PreviewIcon from '@mui/icons-material/Preview';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -13,14 +13,12 @@ import '../App.css'
 const Label = ({services, currService, currSubService}) => {
 
     return(
-
-        <div className=' col-span-2'>
-
+        <div className = ' col-span-3'>
         {
             services.map(
                 (elt, indx) => 
-                <div key={indx} className = {` w-full h-full ${currService(Object.keys(elt)[0]) ? 'border border-blue-500' : 'border border-gray-100 p-1'} `}>
-                    <button className={`${currService(Object.keys(elt)[0]) ? ' text-white bg-blue-600' : ' text-gray-800 bg-slate-50 text-lg'}`}>{Object.keys(elt)[0]}</button>
+                <div key={indx} className = {` col-span-3 ${currService(Object.keys(elt)[0]) ? 'border border-blue-500' : 'border border-gray-100 p-1'} `}>
+                    <button className={`${currService(Object.keys(elt)[0]) ? ' text-white bg-blue-600' : ' text-gray-800 bg-slate-50 text-lg w-full'}`}>{Object.keys(elt)[0]}</button>
                         {
                             currService(Object.keys(elt)[0]) && 
                                 <div className = ' w-full h-full flex flex-col gap-1'>
@@ -35,44 +33,34 @@ const Label = ({services, currService, currSubService}) => {
 
         </div>
     )
-
 }
 
 const Medias = ({media}) => {
-
     const [indx, setIndx] = useState(0)
     const [mediaI, setMediaI] = useState(media)
     const imgRef = useRef(new Map())
     useEffect(() => {
-       async function anim(){
-                const node = imgRef.current.get(mediaI[indx % media.length])
-                node.scrollIntoView({
-                behaviour:'smooth',
-                block:'nearest',
-                inline:'center'
-            })
-            
-            await Tdelay(1500)
-            setMediaI([...mediaI, mediaI[indx]])
-            setIndx(indx + 1)
-        }
-        anim()
+        setTimeout(() => {
+            const node = imgRef.current.get(mediaI[indx % media.length])
+            node.scrollIntoView({
+            behaviour:'smooth',
+            block:'nearest',
+            inline:'center'
+        })
+        setMediaI([...mediaI, mediaI[indx]])
+        setIndx(indx + 1)
+        }, 1500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[indx])
-    
     return(
-        <div className={'col-span-3 border border-gray-300 flex gap-1  p-1 overflow-hidden'}>
+        <div className={'col-span-5 overflow-hidden border border-gray-300 flex gap-1  p-1 h-10'}>
             {
                 mediaI.map((elt, indx) => 
                 <div className=' w-full h-full'  key = {indx} ref = {(node) => {
-                        if(node){
-                            imgRef.current.set(elt, node)
-                        }
-                        else
-                        {
-                            imgRef.current.delete(elt)
-                        } }}>
-                            <Timg  url={elt.url} alt={`Image de la category ${elt.category} et du service ${elt.service}`} className={'w-full h-full'}/>
+                        imgRef.current.set(elt, node);
+                        return ()=> imgRef.current.delete(elt)
+                        }}>
+                            <Timg   url={elt.url} alt={`Image de la category ${elt.category} et du service ${elt.service}`} className={'w-full h-full'}/>
                 </div>)
             }
         </div>
@@ -81,17 +69,14 @@ const Medias = ({media}) => {
 }
 
 const Gallery = () => {
-
-    const [loader, setLoader] = useState(true)
     const [currentIndx, setCurrentIndx] = useState(0)
     const [med, setMed] = useState([])
     const services = [{Construction:['placoplatre', 'etanchiete', 'raccord', 'drainage']}, {Decoration:['papierPeint']}, {Peinture:['peintureEau', 'peintureHuile']}]
     useEffect(() =>{
-        fetch(fetchLink('medias/show'))
+        fetch(fetchLink('medias/plans'))
         .then((value) => value.json())
         .then((response) => {
             setMed(response)
-            setLoader(false)
         })
         .catch((reason) => console.log('An error occured', reason))
     }, [])
@@ -104,14 +89,14 @@ const Gallery = () => {
         anim()
     },[currentIndx])
     
-    if(loader){
-        return <Loader/>
+    if(med.length <= 0){
+        return <div className=' w-full flex justify-center'><div className=' border-2 w-10 h-10 border-blue-600 animate-spin rounded-full border-b-white'></div></div>
     }
     return(
-                <div className=' row-span-4 grid grid-cols-5' >
-                    <Label services={services} currSubService={(subService) => subService === med[currentIndx % med.length].subService} currService={(service) => service === med[currentIndx % med.length].service}/>
-                    <Medias media={med}/>
-                </div>
+            <div className=' grid grid-cols-8 mb-12'>
+                <Label services={services} currSubService={(subService) => subService === med[currentIndx % med.length].subService} currService={(service) => service === med[currentIndx % med.length].service}/>
+                <Medias media = {med}/>
+            </div>
             )
 
 }
@@ -121,7 +106,6 @@ const SelectS = ({callback}) => {
     const [service, setService] = useState(null)
     const [open, setOpen] = useState(false)
     const travaux = ['Placo design', 'Peinture', 'Papier peint'].map((elt) => <button onClick={() =>handleSelect(elt)} className = ' border-none  p-1 to-gray-800 '> {elt}</button>)
-
     const handleSelect = (service) => {
         setService(service)
         setOpen(prev => !prev)
@@ -129,12 +113,11 @@ const SelectS = ({callback}) => {
     }
     return(
         <div className=' flex flex-col text-gray-700'>
-        <button onClick={()=>setOpen(!open)} className=' rounded-md border border-black p-1  outline-0 outline-blue-500  bg-gray-200 to-gray-800 '>{service ? service : 'Selectionnez un service'}{'  '} <KeyboardArrowDownIcon/></button>
-        {open &&<div className=' border-blue-50 p-1 flex flex-col divide-y'>
-            {
-               travaux 
-            }
-        </div>}
+            <button onClick={()=>setOpen(!open)} className=' rounded-md border border-black p-1  outline-0 outline-blue-500  bg-gray-200 to-gray-800 '>{service ? service : 'Selectionnez un service'}{'  '} <KeyboardArrowDownIcon/></button>
+            {open &&
+            <div className=' border-blue-50 p-1 flex flex-col divide-y'>
+                {travaux}
+            </div>}
         </div>
     )
 }
@@ -171,7 +154,7 @@ const DevisForm = () => {
         })}
     }
     return(
-        <form onSubmit={handleSubmit} className='text-gray-700 row-span-2 bg-gradient-to-r flex justify-center items-center lineargrad'>
+        <form onSubmit={handleSubmit} className='text-gray-700 bg-gradient-to-r flex justify-center items-center lineargrad'>
            <div>
                 <div className = 'flex justify-between '>
                      <SelectS callback={nextInput}/>
@@ -336,7 +319,7 @@ const CommmentR = () => {
     }
 
     return(
-        <div className=' row-span-4 grid-cols-5 '>
+        <div className='grid-cols-5 '>
             <FormComment handleAddComment={handleAddComment}/>
             <CommentList comment={comment}/>
         </div>
@@ -346,7 +329,7 @@ const CommmentR = () => {
 
 function ShowCase() {
   return (
-    <div className=' w-screen h-screen grid grid-rows-10'>
+    <div>
         <Gallery/>
         <DevisForm/>
         <CommmentR/>

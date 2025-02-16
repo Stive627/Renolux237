@@ -49,7 +49,7 @@ export const TypeWriterSingle = ({text, className, ms}) => {
 }
 
 
-// The typewriter of Tsoft company
+// The typewriter of TSA company
 export const TypeWriterArr = ({arr, className, ms}) =>{
     const [write, setWrite] = useState([""])
     const [len, setLen] = useState(0)
@@ -98,7 +98,7 @@ export const TypeWriterArr = ({arr, className, ms}) =>{
 
 }
 
-// loader for Tsoft company
+// loader for TSA company
 
 export const Loader = ({sizeContainer, sizeSpin}) =>{
     return(
@@ -108,9 +108,9 @@ export const Loader = ({sizeContainer, sizeSpin}) =>{
     )
 }
 
-//fetch link for Tsoft company
+//fetch link for TSA company
 
-export const fetchLink = (suffix) => {console.log(`http://localhost:3001/${suffix}`); return 'http://localhost:3001/' + suffix }
+export const fetchLink = (suffix) =>'http://localhost:3001/' + suffix 
 
 
 

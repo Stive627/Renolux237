@@ -2,24 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-    .scrollVertical{
-        animation: verticalAnimation 7s linear infinite;
-        padding-bottom: 100%;
-    }
-    @keyframes verticalAnimation {
-        0% {transform: translate(0,0);}
-        100% {transform: translate((0%, 100%));}
-    }
-    .scrollHorrizontal{
-        animation: horizontalAnimation 7s linear infinite;
-        padding-left: 100%;
-    }
-    @keyframes horizontalAnimation {
-        0% {transform: translate(0, 0);}
-        100% {transform: translate(100%, 0);}
-    }
+
+.scrollVertical{
+    animation: verticalAnimation 25s linear infinite;
 }
+@keyframes verticalAnimation {
+    to{transform: translateY(-100%);}
+}
+.scrollHorrizontal{
+    animation: horizontalAnimation 7s linear infinite;
+    padding-left: 100%;
+}
+@keyframes horizontalAnimation {
+    0% {transform: translate(0, 0);}
+    100% {transform: translate(100%, 0);}
+}
+
 
 .com{
     animation: comment 18s infinite;
@@ -35,4 +33,26 @@
 }
 .lineargrad{
     background-color: linear-gradient(to right, rgba(234, 213, 233, 1), rgba(59, 136, 219, 0.51),  rgba(245, 245, 245, 1));;
+}
+.navhov{
+    color: rgba(57, 55, 55, 1);
+}
+.navhov:hover{
+    color: rgba(59, 136, 219, 1);
+}
+
+.outlineInput{
+    outline: rgba(38, 103, 255, 1);
+}
+.outlineInput:focus{
+    border: 2px solid rgba(38, 103, 255, 1);;
+}
+.googleBorder{
+    border: 1px solid white;
+    border-radius: 20px;
+    background-image: linear-gradient(white, white), 
+                      linear-gradient(to right, rgba(255, 65, 49, 1), rgba(255, 189, 0, 1), rgba(0, 170, 75, 1), rgba(0, 134, 249, 1));
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    padding: 1px;
 }
