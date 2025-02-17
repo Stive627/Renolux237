@@ -3,19 +3,20 @@ import { fetchLink } from '../Ttools'
 import Navbar from '../ComponentsReno/Navbar'
 import useScreen from '../hook/useScreen'
 import '../App.css'
-import Password from '../ComponentsAdmin/Password'
-
-
+import Password from '../Register/Password'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function Login() {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
   const [err, setErr] = useState({user:false, password:false})
   const [visible, setVisible] = useState(true)
+  const navigate = useNavigate()
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    const formData = new FormData()
-    formData.append('usernameOrEmail', user)
+    let formData = new FormData()
+    formData.append('usernameoremail', user)
     formData.append('password', password)
     if(!user && !password){
       return setErr({user:true, password:true})
@@ -26,18 +27,9 @@ function Login() {
     if(!password){
      return setErr({...err, password:true})
     }
-
-    try{
-      await fetch(fetchLink('login'), {body:formData})
-      .then((value) =>value.json())
-      .then(value =>{
-        localStorage.setItem('token', value.token)
-      })
-    }
-    catch(error){
-      console.error(error.response.data)
-    }
-
+    axios({url:fetchLink('admin/login'), method:'POST', data:formData, headers:{"Content-Type":"application/json"}})
+    .then(value =>{console.log(value); navigate('/admin')})
+    .catch(err => console.error(err))
   }
   const large = useScreen()
   const handleVisibility = () => setVisible(!visible)
@@ -55,8 +47,8 @@ function Login() {
               <div className=' flex justify-center'><button type='submit' className={ `  bg-blue-600 text-white p-2 outlineInput rounded-lg  w-1/2`}>Connexion</button></div>
           </form>
           </div>
-            <p className=' text-center text-[17px]'>Mot de passe oublie? cliquez <span className=' text-blue-600 underline'>ici</span></p>
-            <p className=' my-3 text-center text-[18px]'>Vous n'avez pas de compte? creer en un <span className=' text-blue-600 underline'>ici</span></p>
+            <p className=' text-center text-[17px]'>Mot de passe oublie? cliquez <span className=' text-blue-600 underline cursor-pointer'>ici</span></p>
+            <p className=' my-3 text-center text-[18px]'>Vous n'avez pas de compte? creer en un <span className=' text-blue-600 underline cursor-pointer' onClick={()=>navigate('/register')}>ici</span></p>
         </>
   )
 }

@@ -9,6 +9,7 @@ import UsernameUI from './UsernameUI';
 import RoundStep from './RoundStep';
 import PasswordUI from './PasswordUI';
 import SecondStep from './SecondStep';
+import axios from 'axios';
 
 function Register() {
     const [email, setEmail]= useState('')
@@ -23,24 +24,15 @@ function Register() {
     const checkUsername = () =>{
         return true 
     }
-    const handleFinish = async(user) =>{
-        const formData = new FormData()
-        formData.append('username', user)
+    const handleFinish = (user) =>{
+        let formData = new FormData()
+        formData.append('username', username)
         formData.append('email', email)
         formData.append('password', password1)
-        try{
-           await fetch(fetchLink(''), {
-                body:formData
-            })
-            .then(value =>value.json())
-            .then(value => value)
-            navigate('/admin')
+        axios({url:fetchLink('admin/register'), headers:{"Content-Type":"application/json"}, data:formData, method:'POST'})
+        .then(value => {console.log(value); navigate('/admin')})
+        .catch(err => {console.error(err); console.log(user, email, password1)})
         }
-        catch(error){
-            console.error(error.response.data)
-        }
-
-    }
     const handleNext = () =>{
         setTimeout(() => {
             setUI(ui + 1)
@@ -61,19 +53,10 @@ function Register() {
     case 1:
         return <div><Navbar right = {false}/><VerificationCode email={email} code={code} checkUsername={checkUsername} handleFunc={handleNext}/></div>
     case 2:
-        return <div><Navbar right = {false}/><SecondStep  password1={password1} password2={password2} passord1Value = {value => setPassword1(value)} password2Value={value =>setPassword2(value)} handleVerification={handleNext} /></div>
+        return <div><Navbar right = {false}/><SecondStep  value={'Continuer'} valuePassword1={(value) => setPassword1(value)} valuePassword2={(value) => setPassword2(value)} password1={password1} password2={password2} passord1Value = {value => setPassword1(value)} password2Value={value =>setPassword2(value)} username = {username} handleFinish = {handleFinish}/></div>
     default:
-        return <div> <Navbar right = {false}/><FormAccueil email= {email} password1 = {password1} password2 = {password2} emailValue = {value => setEmail(value)} passord1Value = {value => setPassword1(value)} password2Value={value =>setPassword2(value)} handleVerification={handleNext} username = {username} handleFinish = {handleFinish}/></div>
-
+        return <div> <Navbar right = {false}/><FormAccueil email= {email} password1 = {password1} password2 = {password2} emailValue = {value => setEmail(value)} passord1Value = {value => setPassword1(value)} password2Value={value =>setPassword2(value)} handleVerification={handleNext} /></div>
    }
-
-{ui > 2 &&<div className=' mt-2 flex flex-row gap-2'>
-                <RoundStep  step ={steps.one} value = {'1'}/>
-                <RoundStep step ={steps.two} value = {'2'}/>
-            </div>}
-        {ui === 3 && <PasswordUI handleVerification={()=>handleNext()} password1 = {password1} password2 = {password2} valuePassword1={value =>setPassword1(value)} valuePassword2={value =>setPassword2(value)} value={'Continuer'}/>}
-        {ui === 4 && <UsernameUI username = {username} handleFinish = {handleFinish}/>}
-
 }
 
 export default Register

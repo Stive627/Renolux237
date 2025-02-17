@@ -7,14 +7,12 @@ function UsernameUI({username, handleFinish}) {
     const [user, setUser] = useState(username)
     const large = useScreen()
     return(
-        <div className=' flex  justify-center'>
-            <div className={`${large? 'w-1/4':'w-3/4'} flex flex-col gap-2`}>
+            <div className={` w-full flex flex-col gap-2 ${large&& 'pr-3'} ${!large && ' pr-4'}`}>
                 <p>Votre nom d'utilisateur</p>
-                <form  className=' flex w-full flex-col gap-2' onSubmit={(e)=>{e.preventDefault(); handleFinish(user)}}>
+                <form  style={{width:large?'44.4vh':'30.6vh'}} className={`${large ? 'w-full':'w-80'} flex  flex-col gap-2`} onSubmit={(e)=>{e.preventDefault(); handleFinish(user)}}>
                     <InputAdmin handleChange={(e)=>setUser(e.target.value)} type={'text'} value={user} placeholder={"Votre nom d'utilisateur"}/>
-                    <ButtonAdmin validation={user.length >0} value={'Terminer'}/>
+                    <div className=' flex justify-center'><ButtonAdmin validation={user.length >0} value={'Terminer'}/></div>
                 </form>
-            </div>
         </div>
     )
 }

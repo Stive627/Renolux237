@@ -4,7 +4,7 @@ import ButtonAdmin  from './Button'
 import validateEmail from './validateEmail'
 import useScreen from '../hook/useScreen'
 import { fetchLink } from '../Ttools'
-import Password from '../ComponentsAdmin/Password'
+import Password from './Password'
 
 function FormAccueil({emailValue, passord1Value, password2Value, email, password1, password2, handleVerification}) {
     const [visible, setVisible] = useState({p:true, v:true})
