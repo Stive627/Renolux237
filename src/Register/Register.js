@@ -5,9 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css'
 import FormAccueil from './FormAccueil';
 import VerificationCode from './VerificationCode';
-import UsernameUI from './UsernameUI';
-import RoundStep from './RoundStep';
-import PasswordUI from './PasswordUI';
 import SecondStep from './SecondStep';
 import axios from 'axios';
 
