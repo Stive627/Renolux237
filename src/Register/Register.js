@@ -34,25 +34,32 @@ function Register() {
         setTimeout(() => {
             setUI(ui + 1)
         }, 750);}
+    const handleVerification = () => {
+        let formData = new FormData()
+        formData.append('email', email)
+        axios({url:fetchLink('admin/emailverification'), headers:{"Content-Type":"application/json"}, data:formData, method:'POST'})
+        .then(value => {console.log(value); setCode(value); setUI(1)})
+        .catch(err =>console.error(err))
+    }
 
-    useEffect(() => {
-        fetch('http://localhost:3001/admin/connect',{credentials:'include'})
-        .then(v => v.json())
-        .then(value =>{
-            setEmail(value.email)
-            setUsername(value.given_name)
-            setUI(2)
-        } )
-        .catch((err) => console.log(err.response.data))
-        }
-   ,[])
+//     useEffect(() => {
+//         fetch('http://localhost:3001/admin/connect',{credentials:'include'})
+//         .then(v => v.json())
+//         .then(value =>{
+//             setEmail(value.email)
+//             setUsername(value.given_name)
+//             setUI(2)
+//         } )
+//         .catch((err) => console.log(err.response.data))
+//         }
+//    ,[])
    switch(ui){
     case 1:
         return <div><Navbar right = {false}/><VerificationCode email={email} code={code} checkUsername={checkUsername} handleFunc={handleNext}/></div>
     case 2:
         return <div><Navbar right = {false}/><SecondStep  value={'Continuer'} valuePassword1={(value) => setPassword1(value)} valuePassword2={(value) => setPassword2(value)} password1={password1} password2={password2} passord1Value = {value => setPassword1(value)} password2Value={value =>setPassword2(value)} username = {username} handleFinish = {handleFinish}/></div>
     default:
-        return <div> <Navbar right = {false}/><FormAccueil email= {email} password1 = {password1} password2 = {password2} emailValue = {value => setEmail(value)} passord1Value = {value => setPassword1(value)} password2Value={value =>setPassword2(value)} handleVerification={handleNext} /></div>
+        return <div> <Navbar right = {false}/><FormAccueil email= {email} password1 = {password1} password2 = {password2} emailValue = {value => setEmail(value)} passord1Value = {value => setPassword1(value)} password2Value={value =>setPassword2(value)} handleVerification={handleVerification} /></div>
    }
 }
 
