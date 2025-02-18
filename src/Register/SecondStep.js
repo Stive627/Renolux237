@@ -3,7 +3,7 @@ import useScreen from '../hook/useScreen'
 import PasswordUI from './PasswordUI'
 import UsernameUI from './UsernameUI'
 
-function SecondStep({password1, password2, valuePassword1, valuePassword2, value, username, handleFinish}) {
+function SecondStep({password1, password2, valuePassword1, valuePassword2, value, handleUsername, handleFinish, username}) {
     const large = useScreen()
     const [step, setStep] = useState({first:true, second:false})
     const usernameRef = useRef(null)
@@ -28,7 +28,7 @@ function SecondStep({password1, password2, valuePassword1, valuePassword2, value
         </div>
         <div className={` mt-4 overflow-x-hidden flex flex-row ${large && 'gap-2'}`}>
             <PasswordUI handleMove={handleMove} password1={password1} password2={password2} valuePassword1={valuePassword1} valuePassword2={valuePassword2} value={value}/>
-            <div  className=' px-5'> <div ref={usernameRef}><UsernameUI  username={username} handleFinish={handleFinish}/></div></div>
+            <div  className=' px-5'> <div ref={usernameRef}><UsernameUI username={username} handleUsername={handleUsername} handleFinish={handleFinish}/></div></div>
         </div>
         </div>
     </div>
