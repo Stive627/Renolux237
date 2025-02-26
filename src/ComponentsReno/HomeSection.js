@@ -6,13 +6,13 @@ const Plans = () => {
     const [plans, setPlans] = useState([])
     const large = useScreen()
     useEffect(() => {
-        fetch((fetchLink('medias/plans')), {
+        fetch((fetchLink('plans')), {
             method: 'GET',
         })
         .then((value)=> value.json())
         .then((value)=>{
-            const plans = value
-            const usefulPlans = plans.map(elt => fetchLink(`plans/${elt}`))
+            const usefulPlans = value.map(elt => fetchLink(`plans/${elt}`))
+            console.log(value)
             const items = usefulPlans.map((elt,indx) => <Timg key={indx} url={elt} className={'  w-full h-full rounded-sm'} alt={`plan de placo n0${indx}`}/>)
             setPlans(items); 
             })

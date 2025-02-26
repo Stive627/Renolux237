@@ -4,6 +4,7 @@ import Renolux from './pages/Renolux'
 import Login from './pages/Login'
 import Register from './Register/Register'
 import Admin from "./pages/Admin";
+import RecoverPassword from "./RecoverPassword/RecoverPassword";
 function App() {
   return (
     <Router>
@@ -12,6 +13,7 @@ function App() {
       <Route path="/register" element={<Register/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/" element={<Renolux/>}/>
+      <Route path="/recoverPassword" element={<RecoverPassword/>}/>
       </Routes>
     </Router>
   );

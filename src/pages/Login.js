@@ -29,7 +29,7 @@ function Login() {
     }
     axios({url:fetchLink('admin/login'), method:'POST', data:formData, headers:{"Content-Type":"application/json"}})
     .then(value =>{console.log(value); navigate('/admin')})
-    .catch(err => console.error(err))
+    .catch(err => {console.error(err); setErr({user:true, password:true})})
   }
   const large = useScreen()
   const handleVisibility = () => setVisible(!visible)
@@ -47,7 +47,7 @@ function Login() {
               <div className=' flex justify-center'><button type='submit' className={ `  bg-blue-600 text-white p-2 outlineInput rounded-lg  w-1/2`}>Connexion</button></div>
           </form>
           </div>
-            <p className=' text-center text-[17px]'>Mot de passe oublie? cliquez <span className=' text-blue-600 underline cursor-pointer'>ici</span></p>
+            <p className=' text-center text-[17px]'>Mot de passe oublie? cliquez <span onClick={()=>navigate('/recoverPassword')} className=' text-blue-600 underline cursor-pointer'>ici</span></p>
             <p className=' my-3 text-center text-[18px]'>Vous n'avez pas de compte? creer en un <span className=' text-blue-600 underline cursor-pointer' onClick={()=>navigate('/register')}>ici</span></p>
         </>
   )

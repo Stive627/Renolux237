@@ -1,0 +1,13 @@
+.first{
+    animation: firstAnimation linear 5s;
+}
+.position{
+    position: relative;
+    left: 1900px;
+}
+@keyframes firstAnimation {
+    30%{transform: translateY(60px);}
+    70%{transform: translateY(60px);}
+    100%{transform: translateY(0px);}
+    
+}
