@@ -1,0 +1,10 @@
+.square{
+    animation: squareanimation linear 0.5s;
+    border-color: red;
+}
+@keyframes squareanimation {
+    40%{border-color: red; transform: translateX(10px);}
+    60%{border-color: red; transform: translateX(10px);}
+    100%{border-color: red; transform: translateX(0px);}
+
+}
