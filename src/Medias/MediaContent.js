@@ -8,11 +8,11 @@ function MediaContent({active, content}) {
     },[content])
     switch(active){
         case 1:
-            return <FilesUI content={content.Decoration}/>
+            return <FilesUI content={content?.Decoration}/>
         case 2:
-            return <FilesUI content={content.Peinture}/>
+            return <FilesUI content={content?.Peinture}/>
         default:
-            return <FilesUI content={content.Placoplatre}/>
+            return <FilesUI content={content?.Placoplatre}/>
     }
 }
 

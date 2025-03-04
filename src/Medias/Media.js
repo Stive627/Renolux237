@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../ComponentsReno/Navbar'
 import Header from './Header'
 import AttachFile from './AttachFile'
@@ -6,14 +6,22 @@ import HandleFile from './HandleFile'
 import MediaContent from './MediaContent'
 import useScreen from '../hook/useScreen'
 import axios from 'axios'
+import { fetchLink } from '../Ttools'
 
 function Media() {
+  useEffect(()=>{ 
+    axios({method:'GET', url:fetchLink('media/show'), headers:{"Content-Type":"application/json"}})
+    .then(value =>{
+      setContent({Placoplatre:value.data.filter(elt => elt.category === 'Placoplatre'), Decoration:value.data.filter(elt => elt.category === 'Decoration'), Peinture:value.data.filter(elt => elt.category === 'Peinture')})
+    })
+    .catch(err => console.log(err))
+  },[])
     const [active, setActive] = useState(0)
     const [file, setFile] = useState(undefined)
     const [type, setType]=useState('--select the service--')
     const large = useScreen()
     const url = file? URL.createObjectURL(file) : undefined
-    const [content, setContent] = useState({Placoplatre:[], Decoration:[], Peinture:[]})
+    const [content, setContent] = useState({Placoplatre:undefined, Decoration:undefined, Peinture:undefined})
     const disable = type === '--select the service--'
     function handleAjouter(){
       var formdata = new FormData()
