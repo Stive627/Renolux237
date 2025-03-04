@@ -5,6 +5,7 @@ import AttachFile from './AttachFile'
 import HandleFile from './HandleFile'
 import MediaContent from './MediaContent'
 import useScreen from '../hook/useScreen'
+import axios from 'axios'
 
 function Media() {
     const [active, setActive] = useState(0)
@@ -14,6 +15,18 @@ function Media() {
     const url = file? URL.createObjectURL(file) : undefined
     const [content, setContent] = useState({Placoplatre:[], Decoration:[], Peinture:[]})
     const disable = type === '--select the service--'
+    function handleAjouter(){
+      var formdata = new FormData()
+      formdata.append('category', type)
+      formdata.append('media', file)
+      axios({method:'POST', url:fetch('media/add'), headers:{"Content-Type":"application/json"}, data:formdata})
+      .then(value =>{
+        console.log(value.data)
+        setContent({...content, [type]:[...content[type], url]});
+         setFile(undefined)
+      })
+      .catch(err => console.log(err))
+    }
   return (
     <div>
         <Navbar/>
@@ -25,7 +38,7 @@ function Media() {
                       <div className=' mt-16'><MediaContent content={content} active={active} /></div>
                     </>
           }
-            {file && <HandleFile disable={disable}  type={type} elts={['Placoplatre', 'Decoration', 'Peinture']}  handleType={setType} file={file} handleAnnuler={()=>setFile(undefined)} handleAjouter={()=>{setContent({...content, [type]:[...content[type], url]}); setFile(undefined)}}/>}
+            {file && <HandleFile disable={disable}  type={type} elts={['Placoplatre', 'Decoration', 'Peinture']}  handleType={setType} file={file} handleAnnuler={()=>setFile(undefined)} handleAjouter={handleAjouter}/>}
           </div>
         </div>
     </div>

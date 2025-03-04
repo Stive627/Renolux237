@@ -1,5 +1,5 @@
 import React from 'react'
-import SelectUI from '../SelectUI/SelectUI'
+import SelectUI from './SelectUI'
 
 function HandleFile({file, type, handleType, handleAnnuler, handleAjouter, elts, disable}) {
   return (
