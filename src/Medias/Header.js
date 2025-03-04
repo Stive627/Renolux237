@@ -1,4 +1,5 @@
 import React from 'react'
+import useScreen from '../hook/useScreen'
 
 function SingleElt({active, value, handleActive, indx}){
     return(
@@ -10,13 +11,16 @@ function SingleElt({active, value, handleActive, indx}){
 }
 
 function Header({active, handleActive}) {
-    const elt = ['PLACOPLATRE', 'DECORATION MAISON', 'PEINTURE']
+    const large = useScreen()
+    const deco = 'DECORATION' + (large ? '  MAISON' : '')
+    const elt = ['PLACOPLATRE', deco, 'PEINTURE']
   return (
-    <div className=' flex justify-center w-screen'>
-        <div className=' flex flex-row gap-4 mt-4  mx-1'>
-            {elt.map((elt, indx) => <SingleElt key={indx} active={active === indx} value={elt} indx={indx} handleActive={handleActive}/>)}
+        <div className=' flex justify-center'>
+            <div className=' flex flex-row gap-8 mt-4  mx-1'>
+                {elt.map((elt, indx) => <SingleElt key={indx} active={active === indx} value={elt} indx={indx} handleActive={handleActive}/>)}
+            </div>
         </div>
-    </div>
+
   )
 }
 
