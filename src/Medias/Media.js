@@ -9,29 +9,27 @@ import axios from 'axios'
 import { fetchLink } from '../Ttools'
 
 function Media() {
+  const [file, setFile] = useState(undefined)
   useEffect(()=>{ 
     axios({method:'GET', url:fetchLink('media/show'), headers:{"Content-Type":"application/json"}})
     .then(value =>{
       setContent({Placoplatre:value.data.filter(elt => elt.category === 'Placoplatre'), Decoration:value.data.filter(elt => elt.category === 'Decoration'), Peinture:value.data.filter(elt => elt.category === 'Peinture')})
     })
     .catch(err => console.log(err))
-  },[])
+  },[file])
     const [active, setActive] = useState(0)
-    const [file, setFile] = useState(undefined)
     const [type, setType]=useState('--select the service--')
     const large = useScreen()
-    const url = file? URL.createObjectURL(file) : undefined
     const [content, setContent] = useState({Placoplatre:undefined, Decoration:undefined, Peinture:undefined})
     const disable = type === '--select the service--'
     function handleAjouter(){
       var formdata = new FormData()
       formdata.append('category', type)
       formdata.append('media', file)
-      axios({method:'POST', url:fetch('media/add'), headers:{"Content-Type":"application/json"}, data:formdata})
+      axios({method:'POST', url:fetchLink('media/add'), data:formdata})
       .then(value =>{
         console.log(value.data)
-        setContent({...content, [type]:[...content[type], url]});
-         setFile(undefined)
+        setFile(undefined)
       })
       .catch(err => console.log(err))
     }

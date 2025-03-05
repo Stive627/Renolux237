@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import FilesUI from './FilesUI';
 
 function MediaContent({active, content}) {
 
-    useEffect(() => {
-        console.log(content)
-    },[content])
     switch(active){
         case 1:
             return <FilesUI content={content?.Decoration}/>

@@ -1,5 +1,6 @@
 import React from 'react'
 import useScreen from '../hook/useScreen'
+import { fetchLink } from '../Ttools'
 
 function FilesUI({content}) {
     const large = useScreen()
@@ -17,14 +18,12 @@ function FilesUI({content}) {
         )
     }
     if(content.length>0){
+        console.log(content[0].url)
         return (
             <div className={`grid ${large ? 'grid-cols-3':'grid-cols-2'} gap-2`}>
-                {content.map((elt, indx) =><img className=' h-full border w-full cursor-pointer' alt={`file${indx}`} src={elt}/>)}
+                {content.map((elt, indx) =><img key={indx} className=' h-full border w-full cursor-pointer' alt={`file${indx}`} src={fetchLink(elt.url)}/>)}
             </div>
         )}
-
-    
-
 }
 
 export default FilesUI

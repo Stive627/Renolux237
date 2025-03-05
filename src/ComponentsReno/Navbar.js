@@ -19,7 +19,7 @@ export function LeftNav(){
     const large = useScreen()
     return(
         <div className = 'flex flex-row items-center gap-2'>
-            <Timg alt={'Logo Renolux'} url={fetchLink('medias/logo.png')} className={`${large? 'w-16 h-16' : 'w-10 h-10'}`}/>
+            <Timg alt={'Logo Renolux'} url={fetchLink('public/medias/logo.png')} className={`${large? 'w-16 h-16' : 'w-10 h-10'}`}/>
             <p style={{color:'rgba(57, 55, 55, 1)'}} className={`font-semibold  ${large? 'text-[26px]':'text-[20px]'}`}>Renolux Cameroun</p>
         </div>
     )
